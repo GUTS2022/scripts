@@ -46,6 +46,19 @@ def prep_location_data(location_data):
         location_data[place][1][1] = int(location_data[place][1][1])
     return location_data
 
+def prep_people_data(people_data):
+    for student in people_data.keys():
+        people_data[student] = people_data[student][0]
+        if people_data[student][7] == "N/A":
+            people_data[student][7] = []
+        else:
+            people_data[student][7] = people_data[student][7].strip("[]{}")
+            people_data[student][7] = people_data[student][7].split(", ")
+            for i in range(len(people_data[student][7])):
+                people_data[student][7][i] = people_data[student][7][i].strip("'")
+                people_data[student][7][i] = people_data[student][7][i].strip('"')
+    return people_data
+
 def locations(time, location_data, security_data):
     location_lists = {place: [] for place in location_data.keys()}
     location_lists.update({"In transit": []})
@@ -89,13 +102,40 @@ def locations(time, location_data, security_data):
                 
     return location_lists
 
-location_data = read_csv("Data/location_data.csv", 0)
-security_data = read_csv("Data/security_logs.csv", 0)
-location_data = prep_location_data(location_data)
-security_data = prep_security_data(security_data)
+def get_connection_ids(people_data, i):
+    subjects = {}
+    for student in people_data.keys():
+        subject = people_data[student][i]
+        if subject in subjects:
+            subjects[subject].add(student)
+        else:
+            subjects.update({subject: {student}})
+    return subjects
 
-#locations(0000, location_data, security_data)
-locations_list = locations(1300, location_data, security_data)
-for key in locations_list.keys():
-    print(key, len(locations_list[key])-1)
-print(locations_list["Kelvingrove Park"])
+def get_soc_connection_ids(people_data):
+    societies = {}
+    for student in people_data.keys():
+        for soc in people_data[student][7]:
+            if soc in societies:
+                societies[soc].add(student)
+            else:
+                societies.update({soc: {student}})
+    return societies
+
+if __name__ == "__main__":
+    location_data = read_csv("Data/location_data.csv", 0)
+    security_data = read_csv("Data/security_logs.csv", 0)
+    people_data = read_csv("Data/people_data.csv", 0)
+    location_data = prep_location_data(location_data)
+    security_data = prep_security_data(security_data)
+    people_data = prep_people_data(people_data)
+    
+    print(get_connection_ids(people_data, 4))
+    societies = get_soc_connection_ids(people_data)
+    for key in societies.keys():
+        print(key, len(societies[key])-1)
+    
+    '''
+    locations_list = locations(1300, location_data, security_data)
+    for key in locations_list.keys():
+        print(key, len(locations_list[key])-1)'''
