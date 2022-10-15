@@ -89,8 +89,8 @@ def locations(time, location_data, security_data):
                 
     return location_lists
 
-location_data = read_csv("location_data.csv", 0)
-security_data = read_csv("security_logs.csv", 0)
+location_data = read_csv("Data/location_data.csv", 0)
+security_data = read_csv("Data/security_logs.csv", 0)
 security_data = prep_security_data(security_data)
 
 print(locations(1200, location_data, security_data))

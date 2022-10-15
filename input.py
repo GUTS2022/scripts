@@ -91,9 +91,9 @@ def add_element(image, people_data, header):
     
     return image
 
-people_data = read_csv("people_data.csv")
-location_data = read_csv("location_data.csv")
-security_data = read_csv("security_logs.csv")
+people_data = read_csv("Data/people_data.csv")
+location_data = read_csv("Data/location_data.csv")
+security_data = read_csv("Data/security_logs.csv")
 #print(subjects)
 
 size = 1500
