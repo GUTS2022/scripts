@@ -1,0 +1,124 @@
+Statement 1
+Student Number: 2760042P
+Name: Amy Powell
+Testimony: Physics class 0900 Kelvin building, QMU for lunch, home
+
+Statement 2
+Student Number: 2527287T
+Name: Danny Thomas
+Testimony: Philosophy student, 0900-1100 class (philosophy?) main building, 1115-1600 Union (notes bands practising), Kelvingrove park couple of hours, Boyd Orr around 5 minutes (yoga mat), home.
+
+Statement 3
+Student Number: 2813225b
+Name: Stuart Wands
+Testimony: 1000 lecture Boyd Orr, Tesco, Park, St Andrews Building, HIVE!
+
+Statement 4
+Student Number: 2730211T
+Name: Chloe Tyler
+Testimony: KG skate park, 1000 lecture Boyd Orr, Library, pub
+
+Statement 5
+Student Number: 2470481H
+Name: Marc Harrison
+Testimony: Early to James Watt Building lecture 1100-1300, QMU until dinner, Library, HIVE
+
+Statement 6
+Student Number: 2477517J
+Name: Gerald Jones
+Testimony: On the Clash of Clans society committee, morning Kelvingrove, lecture medicine building, home, Clash Of Clans social Boyd Orr, Library until midnight
+
+Statement 7
+Student Number: 2522391J
+Name: Lee James
+Testimony: 1045-1145 St Andrews, 1145-1230 Kelvingrove park, 1300-1500 lecture (Medicine?) Wolfson building, home, 1700 Wolfson building to get skateboard, union soup-tasting for about 25 minutes, home
+
+Statement 8
+Student Number: 2878087C
+Name: Danielle Cox
+Testimony: lecture Kelvin Building, met friend 30 min Sir Alwyn Williams building, lunch bagel mania, library, home, pres at friend's, kelvingrove park with friends, town, return to park to look for dropped purse, home
+
+Statement 9 
+Student Number: 2656431B
+Name: Oscar Brown
+Testimony: Nothing
+
+Statement 10
+Student Number: 2547270B
+Name: Katie Bell
+Testimony: 30 min kelvingrove, home, 1000 lecture Adam Smith Building, sketching main building, 1700 Basketball meetup GUU for a few hours, home
+
+Statement 11
+Student Number: 2525914R
+Name: Barry Robinson
+Testimony: OUT OF ORDER, Sir Alwyn Williams Building, GUU, Main building, Adam Smith building
+
+Statement 12
+Student Number: 2774868P
+Student Name: Alice Patterson
+Testimony: Engineering lecture, St Andrews building, library
+
+Statement 13
+Student Number: 2523112J
+Name: Beth Jones
+Testimony: Met with Russell 1030, 1300 medicine, park, Big Band Society event QMU, 2200-0200 met Olivia park
+
+Statement 14
+Student Number: 2546112P
+Name: Eric Parkin
+Testimony: pharmacy student, 0700 kelvingrove, QMU, GUU, on the philosophy society committee, main building
+
+Statement 15
+Student Number: 2425599J
+Name: Angela Jones
+Testimony: 5th year vet med student, 1000 vet med lecture (full year group attendance) main building, park, QMU, Boyd Orr computer lab until 1930, GUU
+
+Statement 16
+Student Number: 2446198D
+Name: Russell Dixon
+Testimony: In the bad movie society. home, maths lecture, home
+
+Statement 17
+Student Number: 2595487S
+Name: Martin Smith
+Testimony: lecture St Andrews Building, Adam smith all afternoon, 1800 Nandos, Boyd Orr Acapella Society event, library until 0000
+
+Statement 18
+Student Number: 2820311J
+Name: Pamela Jones
+Testimony: lecture main building around lunchtime, Boyd Orr all afternoon in a lab, home, library
+
+Statement 19
+Student Number: 2712324G
+Name: Jonny Craig
+Testimony: library, 1 hour chemistry lecture, library, Adam Smith group project, Glasgow University Union with group project friend
+
+Statement 20
+Student Number: 2470551P
+Name: Melanie Patterson
+Testimony: Italian Society event in town, park with a friend from society, home for about 2 hours, lecture Boyd Orr, left for coffee, returned 1330-1430 Boyd Orr, home, library
+
+Statement 21
+Student Number: 2611516B
+Name: Carolyn Bond
+Testimony: Doctor who society member. 0900-1200 lecture St Andrews building, Wolfson cafe, home, team meeting (or maybe following lecture) at Adam Smith about twenty minutes late, lecture 1600-1700, home 
+
+Statement 22
+Student Number: 2786843M
+Name: Abdul Murphy
+Testimony: lecture St Andrews building, Wolfson Medical with medical friends, Sir Alwyn Williams Building, Queen Margaret Union
+
+Statement 23
+Student Number: 2797619M
+Name: Russell Matthews
+Testimony: 0900 physics lecture, met friend Beth at Glasgow University Union before 1100, park with Beth, GUU/HIVE, home before 2200 
+
+ Statement 24
+Student Number: 2733956H
+Name: Jill Hill
+Testimony: lecture "after lunch", union for 30 min, library until 1900
+
+Statement 25
+Student Number: 2795502Y
+Name: Shaun Yates
+Testimony: In the Minecraft society. late for class, 1000 chemistry lecture, 1100-1540 Computer Science tutorial Boyd Orr, home, 2330-0320 Kelvingrove park

@@ -1,0 +1,52 @@
+Building Name,Geolocation,Opening Times,Description
+
+Boyd Orr Building,{55.8730105 -4.2925361},0800-2100,
+General Science, + overflow (especially first year)
+CS lectures 1000-1200
+
+James Watt Building,{55.8708777 -4.2893462},0900-1700,
+Mathematics and Engineering
+Houses expensive fabrication tools
+Engineering lectures 1000-1300
+
+Adam Smith Building,{55.8737694 -4.2920551},0900-1700,
+Important mural inside
+Business lectures 1000-1100
+
+Main Building,{55.8714732 -4.2927198},0900-1700,
+Philosophy lectures 0900-1100
+Veterinary Medicine lectures 1000-1200
+Mathematics lectures 1100-1300
+
+Wolfson Medical Building,{55.8729239 -4.295317},0900-1700,
+Medicine, with notable architectural and engineering features.
+Medicine lectures 1300-1500
+
+Glasgow University Union,{55.8723758 -4.285949},0900-2300,
+Student Union
+
+The Hive,{55.8728276 -4.2844698},2200-0200,
+Student union bar/"club". 18+ only
+
+Sir Alwyn Williams Building,{55.8739511 -4.2940459},0900-1700,
+Computing Science
+
+Library,{55.8739571 -4.2940459},0700-0200,
+Library
+
+Queen Margaret Union,{55.8735992 -4.2935842},0800-2300,
+Union building, related to basement of North Park House
+
+St Andrews Building,{55.8717345 -4.2818099},0900-1700,
+School of Education (Faculty)
+English Literature lectures 0900-1200
+
+Kelvingrove Park,{55.8689911 -4.2847528},0000-0000,
+This is a park
+
+Joseph Black Building,{55.8721791 -4.2925265},0900-1700,
+Chemistry
+Chemistry lectures 1000-1100
+
+Kelvin Building,{55.8721791 -4.2925265},0900-1700,
+Physics lectures 0900-1100
