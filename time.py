@@ -38,6 +38,14 @@ def prep_security_data(security_data):
             security_data[student][i] = track
     return security_data
 
+def prep_location_data(location_data):
+    for place in location_data.keys():
+        location_data[place] = location_data[place][0]
+        location_data[place][1] = location_data[place][1].split("-")
+        location_data[place][1][0] = int(location_data[place][1][0])
+        location_data[place][1][1] = int(location_data[place][1][1])
+    return location_data
+
 def locations(time, location_data, security_data):
     location_lists = {place: [] for place in location_data.keys()}
     location_lists.update({"In transit": []})
@@ -82,15 +90,22 @@ def locations(time, location_data, security_data):
             else:
                 location_lists["In transit"].append([earl[1],earl[2][1],
                                                      student,None,None])
-            
-                
-                
+    
+    for place in location_data.keys():
+        if location_data[place][1][0] >= location_data[place][1][1]:
+            location_lists[place].append(location_data[place][1][0] <= time%2400
+                                        or location_data[place][1][1] >= time%2400)
+        else:
+            location_lists[place].append(location_data[place][1][0] <= time%2400
+                                        and location_data[place][1][1] >= time%2400)
                     
                 
     return location_lists
 
 location_data = read_csv("Data/location_data.csv", 0)
 security_data = read_csv("Data/security_logs.csv", 0)
+location_data = prep_location_data(location_data)
 security_data = prep_security_data(security_data)
 
-print(locations(1200, location_data, security_data))
+#locations(0000, location_data, security_data)
+print(locations(0000, location_data, security_data))
