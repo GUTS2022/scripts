@@ -74,37 +74,80 @@ class network_builder:
         self.big_frame.grid()
         self.big_frame.bind('<Button-1>', self.click_event)
         self.big_frame.bind('<B1-Motion>', self.motion_event)
+        self.big_frame.bind('<Button-1>', self.click_event)
+        self.big_frame.bind('<ButtonRelease-1>', self.release_event)
         
         self.people_data = time_.read_csv("Data/people_data.csv",0)
         self.people_data = time_.prep_people_data(self.people_data)
         self.societies = time_.get_soc_connection_ids(self.people_data)
+        self.subjects = time_.get_connection_ids(self.people_data, 4)
         
         self.radius = 10
         self.size = 1000
         self.colour = (0,255,0)
-        self.coords = [[(0,0),(255,255,255)]]
+        self.coords = {"base": [(0,0),(255,255,255)]}
         self.generate_coords()
-        self.selected = 0
+        self.selected_id = "base"
         
         self.update_image()
         update_display_label(self.big_frame, self.base_image)
     
     def generate_coords(self):
-        self.keys = [key for key in self.people_data.keys()]
-        for i in range(len(self.keys)):
-            colour = self.people_data[self.keys[i]][0][6][1:]
-            colour = (int(colour[:2], base=16),int(colour[2:4], base=16),
-                      int(colour[4:6], base=16))
+        keys = [key for key in self.people_data.keys()]
+        angle = 0
+        radius = 300
+        rows = 13
+        rad = 2*np.pi/len(keys)
+        for i in range(len(keys)):
+            colour = self.people_data[keys[i]][6]
             
-            rows = 13
-            x = (900//rows+2)*((i%rows)+1)
-            y = (600//rows+2)*((i//rows)+1)
-            self.coords.append([(x,y), colour])
+            x = int(500 + radius*np.sin(angle))
+            y = int(360 + radius*np.cos(angle))
+            self.coords.update({keys[i]: [(x,y), colour]})
+            angle += rad
+        
+        keys = [key for key in self.societies.keys()]
+        for i in range(len(keys)):
+            soc = keys[i]
+            x = ((i//4)+1) * 100
+            y = ((i%4)+1) * 100
+            
+            self.coords.update({soc: [(x,y), (255,0,0)]})
+        
+        keys = [key for key in self.subjects.keys()]
+        for i in range(len(keys)):
+            soc = keys[i]
+            x = ((i//4)+1) * 120
+            y = ((i%4)+1) * 120
+            
+            self.coords.update({soc: [(x,y), (0,0,255)]})
     
     def add_base_connections(self):
-        for soc in self.societies.keys():
-            for i in range(len(self.societies[soc])):
-                
+        num = 0
+        keys = [key for key in self.societies.keys()]
+        for i in range(len(keys)):
+            soc = keys[i]
+            if soc != self.selected_id:
+                for j in range(len(self.societies[soc])):
+                    if self.societies[soc][j] != self.selected_id:
+                            self.base_image = cv2.line(self.base_image,
+                                                       self.coords[self.societies[soc][j]][0],
+                                                       self.coords[soc][0],
+                                                       (255, 128, 0), 1)
+                            num += 1
+        keys = [key for key in self.subjects.keys()]
+        for i in range(len(keys)):
+            soc = keys[i]
+            if soc != self.selected_id:
+                for j in range(len(self.subjects[soc])):
+                    if self.subjects[soc][j] != self.selected_id:
+                            self.base_image = cv2.line(self.base_image,
+                                                       self.coords[self.subjects[soc][j]][0],
+                                                       self.coords[soc][0],
+                                                       (0, 200, 255), 1)
+                            num += 1
+        print(num)
+                    
     
     def update_image(self):
         image = np.ones((720,1000,3), dtype="uint8")
@@ -112,29 +155,37 @@ class network_builder:
         
         self.add_base_connections()
         
-        for coord in self.coords[:self.selected]+self.coords[self.selected+1:]:
-            self.base_image = cv2.circle(self.base_image, coord[0], self.radius,
-                                         coord[1], -1)
+        for key in self.coords.keys():
+            if not (key == self.selected_id or key == "base"):
+                coord = self.coords[key]
+                self.base_image = cv2.circle(self.base_image, coord[0], self.radius,
+                                             coord[1], -1)
         
     def click_event(self, event):
         success = False
-        for i in range(1, len(self.coords)):
-            if np.sqrt(pow((event.x - self.coords[i][0][0]),2)
-            + pow((event.y - self.coords[i][0][1]),2)) <= self.radius:
-                self.selected = i
-                success = True
-                break
+        for key in self.coords.keys():
+            if key != "base":
+                if np.sqrt(pow((event.x - self.coords[key][0][0]),2)
+                + pow((event.y - self.coords[key][0][1]),2)) <= self.radius:
+                    self.selected_id = key
+                    success = True
+                    break
         if not success:
-            self.selected = 0
+            self.selected_id = "base"
         self.update_image()
     
     def motion_event(self, event):
-        if self.selected:
-            self.coords[self.selected][0] = (event.x, event.y)
+        if self.selected_id != "base":
+            self.coords[self.selected_id][0] = (event.x, event.y)
             image = self.base_image.copy()
-            image = cv2.circle(image, self.coords[self.selected][0],
-                                    self.radius, self.coords[self.selected][1], -1)
+            image = cv2.circle(image, self.coords[self.selected_id][0],
+                               self.radius, self.coords[self.selected_id][1], -1)
             update_display_label(self.big_frame, image)
+    
+    def release_event(self, event):
+        self.selected_id = "base"
+        self.update_image()
+        update_display_label(self.big_frame, self.base_image)
         
 
 if __name__ == "__main__":

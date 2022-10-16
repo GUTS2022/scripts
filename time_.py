@@ -41,6 +41,15 @@ def prep_security_data(security_data):
 def prep_location_data(location_data):
     for place in location_data.keys():
         location_data[place] = location_data[place][0]
+        location_data[place][0] = location_data[place][0].strip("{}")
+        location_data[place][0] = location_data[place][0].split(" ")
+        location_data[place][0][0] = int(location_data[place][0][0])
+        location_data[place][0][1] = int(location_data[place][0][1])
+        #location_data[place][0][0] = float(location_data[place][0][0]) - 55.8
+        #location_data[place][0][0] = int(location_data[place][0][0]*10000)
+        #location_data[place][0][1] = float(location_data[place][0][1]) + 4.3
+        #location_data[place][0][1] = int(location_data[place][0][1]*10000)
+        
         location_data[place][1] = location_data[place][1].split("-")
         location_data[place][1][0] = int(location_data[place][1][0])
         location_data[place][1][1] = int(location_data[place][1][1])
@@ -49,6 +58,10 @@ def prep_location_data(location_data):
 def prep_people_data(people_data):
     for student in people_data.keys():
         people_data[student] = people_data[student][0]
+        colour = people_data[student][6][1:]
+        colour = (int(colour[:2], base=16),int(colour[2:4], base=16),
+                  int(colour[4:6], base=16))
+        people_data[student][6] = colour
         if people_data[student][7] == "N/A":
             people_data[student][7] = []
         else:
@@ -56,21 +69,35 @@ def prep_people_data(people_data):
             people_data[student][7] = people_data[student][7].split(", ")
             for i in range(len(people_data[student][7])):
                 people_data[student][7][i] = people_data[student][7][i].strip("'")
+                
                 people_data[student][7][i] = people_data[student][7][i].strip('"')
     return people_data
 
-def locations(time, location_data, security_data):
+def locations(time, location_data, security_data, time2=None):
     location_lists = {place: [] for place in location_data.keys()}
-    location_lists.update({"In transit": []})
+    
+    if time2 != None:
+        if time2 < time:
+            time, time2 = time2, time
+        elif time2 == time:
+            time2 = None
     
     for student in security_data.keys():
         tracked = False
         for track in security_data[student]:
-            if time <= track[2][1] and time >= track[2][0]:
-                location_lists[track[1]].append(student)
-                tracked = True
+            if time2 == None:
+                if time <= track[2][1] and time >= track[2][0]:
+                    location_lists[track[1]].append(student)
+                    tracked = True
+            else:
+                if ((time <= track[2][1] and time >= track[2][0])
+                    or (time2 <= track[2][1] and time2 >= track[2][0])
+                    or (track[2][0] > time and track[2][1] < time2)):
+                    location_lists[track[1]].append(student)
+                    tracked = True
         
-        if not tracked:
+        if not tracked and time2 == None:
+            location_lists.update({"In transit": []})
             earl = None
             late = None
             for track in security_data[student]:
@@ -107,9 +134,9 @@ def get_connection_ids(people_data, i):
     for student in people_data.keys():
         subject = people_data[student][i]
         if subject in subjects:
-            subjects[subject].add(student)
+            subjects[subject].append(student)
         else:
-            subjects.update({subject: {student}})
+            subjects.update({subject: [student]})
     return subjects
 
 def get_soc_connection_ids(people_data):
@@ -117,9 +144,9 @@ def get_soc_connection_ids(people_data):
     for student in people_data.keys():
         for soc in people_data[student][7]:
             if soc in societies:
-                societies[soc].add(student)
+                societies[soc].append(student)
             else:
-                societies.update({soc: {student}})
+                societies.update({soc: [student]})
     return societies
 
 if __name__ == "__main__":
@@ -130,12 +157,21 @@ if __name__ == "__main__":
     security_data = prep_security_data(security_data)
     people_data = prep_people_data(people_data)
     
-    print(get_connection_ids(people_data, 4))
+    '''
+    subjects = get_connection_ids(people_data, 4)
+    for key in subjects.keys():
+        print(key, len(subjects[key]))
     societies = get_soc_connection_ids(people_data)
     for key in societies.keys():
-        print(key, len(societies[key])-1)
-    
+        print(key, len(societies[key]))
     '''
-    locations_list = locations(1300, location_data, security_data)
-    for key in locations_list.keys():
-        print(key, len(locations_list[key])-1)'''
+    locations_list = locations(1300, location_data, security_data, 2100)
+    num = []
+    for i in range(2400):
+        locations_list = locations(i, location_data, security_data)
+        for key in locations_list.keys():
+            num.append([len(locations_list[key])-1, i])
+        #print(key, len(locations_list[key])-1)
+    num.sort()
+    print(num)
+    
