@@ -207,6 +207,8 @@ class map_viewer:
             if np.sqrt(pow((event.x - coords[1]),2)
             + pow((event.y - coords[0]),2)) <= 10:
                 self.text += key + "\n\n" + self.location_data[key][2] + "\n\n"
+                if len(self.locations_list[key]) > 1:
+                    self.text += "# inside: " + str(len(self.locations_list[key])-1) + "\n\n"
         if np.sqrt(pow((event.x - self.transit_loc[1]),2)
         + pow((event.y - self.transit_loc[0]),2)) <= 10:
             self.text += "Offsite\n\nThis indicates the location the student goes to when leaving the university, typically to go home.\n\n"
