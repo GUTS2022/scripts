@@ -4,9 +4,10 @@ Created on Sat Oct 15 17:43:53 2022
 
 @author: hbarr
 """
-def extract_tests(text):
+def extract_tests():
+    with open("Data/student_statements.txt", "r") as txt:
+        text = txt.read()
     text = text.split("\n")
-    print(len(text))
     
     ids = []
     names = []
@@ -19,10 +20,9 @@ def extract_tests(text):
         elif i%5 == 3:
             tests.append(text[i][11:])
     
-    print(ids)
-    return ids, tests
+    out = {ids[i]: tests[i] for i in range(len(ids))}
+    return out
 
 if __name__ == "__main__":
-    with open("Data/student_statements.txt", "r") as txt:
-        text = txt.read()
-    extract_tests(text)
+    
+    extract_tests()

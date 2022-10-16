@@ -31,10 +31,12 @@ def prep_security_data(security_data):
         for i in range(len(security_data[student])):
             track = security_data[student][i]
             track[2]=track[2].split("-")
-            track[2][0] = int(track[2][0])
-            track[2][1] = int(track[2][1])
+            track[2][0] = int(track[2][0])-300
+            track[2][1] = int(track[2][1])-300
             if track[2][0] > track[2][1]:
                 track[2][1] += 2400
+            track[2][0] = 60*(track[2][0]//100) + track[2][0]%100
+            track[2][1] = 60*(track[2][1]//100) + track[2][1]%100
             security_data[student][i] = track
     return security_data
 
@@ -51,8 +53,10 @@ def prep_location_data(location_data):
         #location_data[place][0][1] = int(location_data[place][0][1]*10000)
         
         location_data[place][1] = location_data[place][1].split("-")
-        location_data[place][1][0] = int(location_data[place][1][0])
-        location_data[place][1][1] = int(location_data[place][1][1])
+        location_data[place][1][0] = int(location_data[place][1][0]) - 300
+        location_data[place][1][1] = int(location_data[place][1][1]) - 300
+        location_data[place][1][0] = 60*(location_data[place][1][0]//100) + location_data[place][1][0]%100
+        location_data[place][1][1] = 60*(location_data[place][1][1]//100) + location_data[place][1][1]%100
     return location_data
 
 def prep_people_data(people_data):
@@ -75,6 +79,7 @@ def prep_people_data(people_data):
 
 def locations(time, location_data, security_data, time2=None):
     location_lists = {place: [] for place in location_data.keys()}
+    location_lists.update({"In transit": []})
     
     if time2 != None:
         if time2 < time:
@@ -97,7 +102,6 @@ def locations(time, location_data, security_data, time2=None):
                     tracked = True
         
         if not tracked and time2 == None:
-            location_lists.update({"In transit": []})
             earl = None
             late = None
             for track in security_data[student]:
@@ -150,7 +154,7 @@ def get_soc_connection_ids(people_data):
     return societies
 
 if __name__ == "__main__":
-    location_data = read_csv("Data/location_data.csv", 0)
+    location_data = read_csv("Data/location_data_.csv", 0)
     security_data = read_csv("Data/security_logs.csv", 0)
     people_data = read_csv("Data/people_data.csv", 0)
     location_data = prep_location_data(location_data)
@@ -165,13 +169,15 @@ if __name__ == "__main__":
     for key in societies.keys():
         print(key, len(societies[key]))
     '''
-    locations_list = locations(1300, location_data, security_data, 2100)
+    locations_list = locations(0000, location_data, security_data)
+    print(locations_list)
+    '''
     num = []
-    for i in range(2400):
+    for i in range(1500):
         locations_list = locations(i, location_data, security_data)
         for key in locations_list.keys():
             num.append([len(locations_list[key])-1, i])
         #print(key, len(locations_list[key])-1)
     num.sort()
-    print(num)
+    print(num)'''
     
